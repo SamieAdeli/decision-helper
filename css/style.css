@@ -1,0 +1,731 @@
+/* =========================
+   Decision Helper - Foundation
+   ========================= */
+
+:root {
+  /* رنگ‌های اصلی – تم تاریک لوکس */
+  --bg-deep: #0b0c0f;
+  --bg-surface: #14161a;
+  --bg-elevated: #1c1f26;
+  
+  --text-primary: #f0f2f5;
+  --text-secondary: #a0a6b0;
+  --text-muted: #6b7280;
+  
+  --accent: #6ee7b7;          /* سبز نعنایی لوکس */
+  --accent-soft: rgba(110, 231, 183, 0.15);
+  --accent-glow: rgba(110, 231, 183, 0.35);
+  
+  --border: rgba(255, 255, 255, 0.06);
+  --shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  
+  --font: 'Vazirmatn', system-ui, sans-serif;
+  
+  --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* App Container */
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(11, 12, 15, 0.8);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.btn-icon {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Stage (میز اصلی) */
+.stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+}
+
+/* Intro Section */
+.intro {
+  text-align: center;
+  max-width: 640px;
+  padding: 2rem;
+}
+
+.intro-title {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #fff 0%, #a0a6b0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.intro-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  margin-bottom: 2.75rem;
+  font-weight: 400;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: var(--accent);
+  color: #0b0c0f;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font);
+  box-shadow: 0 0 0 0 var(--accent-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--accent-glow);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Utility */
+.hidden {
+  display: none !important;
+}
+
+/* آماده برای انیمیشن‌های بعدی */
+.workspace {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 70vh;
+}
+
+/* آماده‌سازی برای انیمیشن‌ها */
+.intro, .workspace {
+  will-change: transform, opacity;
+}
+
+/* Intro - حالت اولیه برای انیمیشن */
+.intro-title,
+.intro-subtitle,
+.btn-primary {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* ==============================
+   Workspace
+   ============================== */
+
+.workspace {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 0 4rem;
+}
+
+.workspace-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  padding: 0 0.5rem;
+}
+
+.workspace-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.workspace-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  background: var(--bg-surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.empty-icon {
+  font-size: 2.8rem;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.empty-state h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+/* Options Grid (آماده‌سازی) */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+/* ==============================
+   Option Cards - نسخه بهبود یافته
+   ============================== */
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.option-card {
+  background: var(--bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 110px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.option-card:hover {
+  border-color: rgba(110, 231, 183, 0.45);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4),
+              0 0 0 1px rgba(110, 231, 183, 0.1);
+}
+
+.option-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.option-card .option-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-family: var(--font);
+  padding: 0;
+  line-height: 1.4;
+}
+
+.option-card .option-name::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.option-card .delete-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.3rem;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.option-card .delete-btn:hover {
+  background: rgba(255, 80, 80, 0.15);
+  color: #ff6b6b;
+}
+
+.option-card .card-footer {
+  margin-top: auto;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+/* دکمه اضافه کردن */
+.add-option-btn {
+  background: rgba(110, 231, 183, 0.04);
+  border: 1px dashed rgba(110, 231, 183, 0.35);
+  border-radius: 14px;
+  color: var(--accent);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 110px;
+}
+
+.add-option-btn:hover {
+  background: rgba(110, 231, 183, 0.1);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(110, 231, 183, 0.15);
+}
+
+/* ریسپانسیو بهبود یافته */
+@media (max-width: 768px) {
+  .options-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.85rem;
+  }
+  
+  .option-card,
+  .add-option-btn {
+    min-height: 100px;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ریسپانسیو */
+@media (max-width: 768px) {
+  .workspace {
+    padding: 1rem 0 3rem;
+  }
+
+  .workspace-header {
+    margin-bottom: 2rem;
+  }
+
+  .workspace-title {
+    font-size: 1.4rem;
+  }
+
+  .empty-state {
+    padding: 3rem 1.25rem;
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .header {
+    padding: 1rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-title {
+    font-size: 1.9rem;
+  }
+
+  .intro-subtitle {
+    font-size: 1rem;
+  }
+
+  .btn-primary {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+  }
+}
+/* ==============================
+   Criteria Section
+   ============================== */
+
+.criteria-section {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  gap: 1rem;
+}
+
+.section-header h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.btn-small {
+  background: rgba(110, 231, 183, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(110, 231, 183, 0.3);
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: all 0.25s ease;
+}
+
+.btn-small:hover {
+  background: rgba(110, 231, 183, 0.2);
+  border-color: var(--accent);
+}
+
+.criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.criteria-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bg-elevated);
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.criteria-item:hover {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.criteria-item input[type="text"] {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.criteria-item input[type="text"]::placeholder {
+  color: var(--text-muted);
+}
+
+.criteria-weight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 140px;
+}
+
+.criteria-weight label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.criteria-weight input[type="range"] {
+  width: 80px;
+  accent-color: var(--accent);
+}
+
+.weight-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  min-width: 20px;
+  text-align: center;
+}
+
+.criteria-delete {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.criteria-delete:hover {
+  background: rgba(255, 80, 80, 0.15);
+  color: #ff6b6b;
+}
+
+/* ریسپانسیو معیارها */
+@media (max-width: 640px) {
+  .criteria-item {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  
+  .criteria-weight {
+    width: 100%;
+    min-width: unset;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+/* ==============================
+   Steps Indicator
+   ============================== */
+
+.steps-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 3.5rem;
+  padding: 0 1rem;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.35;
+  transition: all 0.4s ease;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+.step.completed {
+  opacity: 0.7;
+}
+
+.step-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.4s ease;
+}
+
+.step.active .step-number {
+  background: var(--accent);
+  color: #0b0c0f;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(110, 231, 183, 0.2);
+}
+
+.step.completed .step-number {
+  background: rgba(110, 231, 183, 0.15);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.step-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.step.active .step-label {
+  color: var(--text-primary);
+}
+
+.step-line {
+  width: 40px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 0.5rem;
+  margin-bottom: 1.5rem;
+  transition: background 0.4s ease;
+}
+
+/* Stage Content */
+.stage-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stage-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.stage-title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.stage-desc {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* Stage Actions */
+.stage-actions {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stage-actions .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 2.2rem;
+}
+
+.stage-actions .btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.btn-arrow {
+  font-size: 1.1rem;
+  transition: transform 0.25s ease;
+}
+
+.stage-actions .btn-primary:not(:disabled):hover .btn-arrow {
+  transform: translateX(-4px);
+}
+
+.action-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ریسپانسیو مراحل */
+@media (max-width: 640px) {
+  .steps-indicator {
+    margin-bottom: 2.5rem;
+  }
+  
+  .step-label {
+    font-size: 0.7rem;
+  }
+  
+  .step-number {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+  
+  .step-line {
+    width: 24px;
+    margin: 0 0.3rem;
+    margin-bottom: 1.4rem;
+  }
+  
+  .stage-title {
+    font-size: 1.4rem;
+  }
+}
