@@ -88,13 +88,50 @@
 
   <!-- ==================== مرحله ۲: معیارها (فعلاً مخفی) ==================== -->
   <div class="stage-content hidden" id="stage-2">
-    <!-- در مرحله بعد پر می‌شود -->
+  <div class="stage-header">
+    <h2 class="stage-title">معیارهایت را مشخص کن</h2>
+    <p class="stage-desc">چه فاکتورهایی برایت مهم هستند و چقدر اهمیت دارند؟</p>
   </div>
 
-  <!-- ==================== مرحله ۳: امتیازدهی (فعلاً مخفی) ==================== -->
-  <div class="stage-content hidden" id="stage-3">
-    <!-- در مراحل بعدی -->
+  <div class="criteria-section">
+    <div class="section-header">
+      <h3>لیست معیارها</h3>
+      <button class="btn-small" id="add-criteria-btn">+ افزودن معیار</button>
+    </div>
+    
+    <div class="criteria-list" id="criteria-list">
+      <!-- معیارها اینجا رندر می‌شوند -->
+    </div>
   </div>
+
+  <div class="stage-actions" id="stage-2-actions">
+    <button class="btn-primary" id="go-to-stage-3" disabled>
+      ادامه به امتیازدهی
+      <span class="btn-arrow">←</span>
+    </button>
+    <p class="action-hint" id="stage-2-hint">حداقل ۱ معیار نیاز است</p>
+  </div>
+</div>
+
+  <!-- ==================== مرحله ۳: امتیازدهی (فعلاً مخفی) ==================== -->
+ <div class="stage-content hidden" id="stage-3">
+  <div class="stage-header">
+    <h2 class="stage-title">امتیازدهی گزینه‌ها</h2>
+    <p class="stage-desc">به هر گزینه در هر معیار نمره بده (از ۱ تا ۱۰)</p>
+  </div>
+
+  <div class="scoring-area" id="scoring-area">
+    <!-- کارت‌های امتیازدهی اینجا رندر می‌شوند -->
+  </div>
+
+  <div class="stage-actions" id="stage-3-actions">
+    <button class="btn-primary" id="go-to-stage-4" disabled>
+      مشاهده نتیجه
+      <span class="btn-arrow">←</span>
+    </button>
+    <p class="action-hint" id="stage-3-hint">همه نمره‌ها را وارد کن</p>
+  </div>
+</div>
 
   <!-- ==================== مرحله ۴: نتیجه (فعلاً مخفی) ==================== -->
   <div class="stage-content hidden" id="stage-4">
